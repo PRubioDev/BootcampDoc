@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plantilla-deploy
+spec:
+  replicas: numero_de_replicas
+  selector:
+    matchLabels:
+      app: plantilla
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: plantilla
+    spec:
+      containers:
+      - image: 
+        name: plantilla
+        env:
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: plantilla-secret
+              key: password
+        - name: ENVIROMENTAL_VARIABLE
+          valueFrom:
+            configMapKeyRef:
+              name: plantilla-env-vars
+              key: plantilla_db_name
+        # - name: MYSQL_USER
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: mysql-env-vars
+        #       key: mysql_user_env
+        # - name: MYSQL_PASSWORD
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: mysql-env-vars
+        #       key: mysql_password_env
+        ports:
+        - containerPort: numero_puerto
+          name: plantilla-port
+        volumeMounts:
+        - name: plantilla-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: plantilla-persistent-storage
+        persistentVolumeClaim:
+          claimName: plantilla-pv-claim

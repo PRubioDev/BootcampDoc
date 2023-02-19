@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tomcat
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tomcat
+        tier: frontend
+    spec:
+      containers:
+      - image: pjsanchezdevcenter/alternative-tomcat
+        name: tomcat
+        ports:

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plantilla-env-vars
+data:
+  plantilla_db_name: "bootcamp"
+  plantilla_user_env: "pjsanchez"
+  plantilla_password_env: "password"

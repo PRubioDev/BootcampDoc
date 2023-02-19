@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jetty-2-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jetty-2
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jetty-2
+        tier: frontend
+    spec:
+      containers:
+      - image: pjsanchezdevcenter/alternative-jetty-2
+        name: jetty-2
+        ports:
+        - containerPort: 8080
+          name: jetty-2-http
+

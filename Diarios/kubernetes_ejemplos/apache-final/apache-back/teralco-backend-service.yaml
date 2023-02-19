@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teralco-backend-service
+  namespace: teralco-web-namespace
+  labels:
+    app: teralco-backend
+spec:
+  type: NodePort
+  ports:  
+  - name: http
+    # port tiene que existir, pero lo que vale de verdad es el valor en nodePort
+    port: 80
+    targetPort: 80
+    nodePort: 30005
+    protocol: TCP
+  selector:
+    app: teralco-backend
+    tier: backend

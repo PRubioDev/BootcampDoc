@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jetty-1-service
+  labels:
+    app: jetty-1
+spec:
+  ports:
+    - port: 8080
+      name: jetty-1-http
+  selector:
+    app: jetty- 1
+    tier: frontend
+  type: ClusterIP

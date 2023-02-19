@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teralco-backend-deploy
+  namespace: teralco-web-namespace
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: teralco-backend
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: teralco-backend
+        tier: backend
+    spec:
+      containers:
+      - image: pjsanchezdevcenter/alternative-httpd-back:latest
+        name: teralco-backend-container
+        ports:
+        - containerPort: 80
+          name: backend-http
+

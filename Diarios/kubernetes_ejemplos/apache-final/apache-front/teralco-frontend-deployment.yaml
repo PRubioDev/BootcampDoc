@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teralco-frontend-deploy
+  namespace: teralco-web-namespace
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: teralco-frontend
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: teralco-frontend
+        tier: frontend
+    spec:
+      containers:
+      - image: pjsanchezdevcenter/alternative-httpd-front:latest
+        name: teralco-frontend-container
+        ports:
+        - containerPort: 80
+          name: frontend-http

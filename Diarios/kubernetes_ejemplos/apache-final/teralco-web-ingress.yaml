@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: teralco-web-ingress
+  namespace: teralco-web-namespace
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    image.registry: "https://hub.docker.com/"
+    image.owner: "pjsanchez@devcenter.es"
+    teralco-web-ingress.purpose: "Two apache servers"
+spec:
+  rules:
+  - host: demo.pjsanchezdevcenter.es
+    http:
+      paths:
+      - path: /front
+        pathType: Prefix
+        backend:
+          service:
+            name: teralco-frontend-service
+            port: 
+              number: 80
+      - path: /back
+        pathType: Prefix
+        backend:
+          service:
+            name: teralco-backend-service
+            port: 
+              number: 80

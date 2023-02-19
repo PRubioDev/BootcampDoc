@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tomcat
+        tier: frontend
+    spec:
+      containers:
+      - image: pjsanchezdevcenter/alternative-tomcat
+        name: tomcat
+        volumeMounts:
+        - name: tomcat-persistent-storage
+          mountPath: /usr/local/tomcat/webapps
+      volumes:
+      - name: tomcat-persistent-storage
+        persistentVolumeClaim:
+          claimName: tomcat-pv-claim
+

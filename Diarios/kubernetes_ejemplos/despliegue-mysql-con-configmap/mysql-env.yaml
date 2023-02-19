@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-env-vars
+data:
+  mysql_db_name: "bootcamp"
+  mysql_user_env: "pjsanchez"
+  mysql_password_env: "password"
